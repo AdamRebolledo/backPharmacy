@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   pharmacy.init({
-    locale_id: DataTypes.STRING
+    locale_id: DataTypes.STRING,
+    user_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'pharmacy',

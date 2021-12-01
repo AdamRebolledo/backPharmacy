@@ -141,6 +141,60 @@ app.post('/api/v1/users/update', async (req, res) => {
   res.send(user)
 })
 
+app.post('/api/v1/pharmacy/create', async (req, res) => {
+  console.log(req)
+  const user = await models.user.findAll({
+    where: {
+      email: req.body.email,
+    }
+  }).then((response) => {
+    savePharmacy(req.body.locale_id, response?.[0]?.dataValues?.id, res)
+  }).catch((err) => {
+    console.log(err)
+    res.json({
+      "message": err?.errors?.[0]?.message
+    });
+  });
+})
+
+const savePharmacy = (locale_id, user_id, res) => {
+  console.log(locale_id, user_id)
+  const user = models.pharmacy.findAll({
+    where: {
+      locale_id: locale_id,
+      user_id: user_id
+    }
+  }).then((response) => {
+    if (response?.[0]?.dataValues === undefined) {
+      const user = models.pharmacy.create({
+        locale_id: locale_id,
+        user_id: user_id
+      }).then((response) => {
+        res.json({
+          "message": "Farmacia añadida a favoritos"
+        });
+      }).catch((err) => {
+        res.json({
+          "message": err?.errors?.[0]?.message
+        });
+      });
+    } else {
+      res.json({
+        "message": "Esta Farmacia ya se encuentra en tus favoritos",
+        "locale_id": locale_id
+      });
+    }
+  }).catch((err) => {
+    console.log(err)
+    res.json({
+      "message": err?.errors?.[0]?.message
+    });
+  });
+
+
+}
+
+
 const sendEmail = (email) => {
   var mailOptions = {
     from: 'app@gmail.com',
