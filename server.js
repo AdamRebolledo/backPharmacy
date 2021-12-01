@@ -1,7 +1,14 @@
 const express = require('express');
+var cors = require('cors')
 const models = require('./models/index');
 var nodemailer = require('nodemailer');
-var cors = require('cors')
+
+const app = express();
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(cors())
+
+
 
 var transporter = nodemailer.createTransport({
   host: 'mail.barucvilla.cl',
@@ -14,9 +21,6 @@ var transporter = nodemailer.createTransport({
 
 
 
-const app = express();
-app.use(cors())
-app.use(express.json())
 
 const port = process.env.PORT || 5000;
 
