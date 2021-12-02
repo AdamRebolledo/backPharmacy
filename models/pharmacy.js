@@ -15,7 +15,21 @@ module.exports = (sequelize, DataTypes) => {
   };
   pharmacy.init({
     locale_id: DataTypes.STRING,
-    user_id: DataTypes.INTEGER
+    user_id: DataTypes.INTEGER,
+    comuna_nombre: DataTypes.STRING,
+    fecha: DataTypes.STRING,
+    fk_comuna: DataTypes.STRING,
+    fk_region: DataTypes.STRING,
+    funcionamiento_dia: DataTypes.STRING,
+    funcionamiento_hora_apertura: DataTypes.STRING,
+    funcionamiento_hora_cierre: DataTypes.STRING,
+    local_direccion: DataTypes.STRING,
+    local_id: DataTypes.STRING,
+    local_lat: DataTypes.STRING,
+    local_lng: DataTypes.STRING,
+    local_nombre: DataTypes.STRING,
+    local_telefono: DataTypes.STRING,
+    localidad_nombre: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'pharmacy',
